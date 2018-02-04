@@ -1,5 +1,5 @@
-Tiny Fastq/Fasta Sequence Extract Program
-=========================================
+Tiny Fastq/Fasta Sequence Extract
+=================================
 
 Synopsis
 --------
@@ -9,8 +9,8 @@ Extract seqs in a FASTQ/FASTA file by a list of interested id's.
 Prerequisites
 -------------
 
-g++ (tested with 4.9.3 and 5.4.0)
-boost library (tested both with 1.4.10 and 1.5.8)
+* g++ (tested with 4.9.3 and 5.4.0)
+* boost library (tested both with 1.4.10 and 1.5.8)
 
 Build
 -----
