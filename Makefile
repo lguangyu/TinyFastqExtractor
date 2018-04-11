@@ -11,26 +11,28 @@
 # View LICENSE for more detailed information
 #*******************************************************************************
 
-LBOOST_PROGOPT = -lboost_program_options
 
 .PHONY: build
-build: tiny_fastq_extractor
+build: argparse.o extract.o main.o tiny_fastq_extractor
 
 .PHONY: test
-test: tiny_fastq_extractor
-	./tiny_fastq_extractor -x test/fasta.ex.txt test/test.fasta
-	./tiny_fastq_extractor -x test/fastq.ex.txt test/test.fastq
+test: build
+	$(MAKE) test -C testsuite
 
-tiny_fastq_extractor: extract.o main.o
-	$(CXX) -o tiny_fastq_extractor extract.o main.o $(LBOOST_PROGOPT)
+tiny_fastq_extractor: argparse.o extract.o main.o
+	$(CXX) --std=c++11 -static -o tiny_fastq_extractor argparse.o extract.o main.o
 
-extract.o: extract.cpp extract.h kseq.h
-	$(CXX) -c -o extract.o extract.cpp
+main.o: main.cpp argparse.h extract.h string_hash.h kseq.h
+	$(CXX) --std=c++11 -c -o main.o main.cpp
 
-main.o: main.cpp extract.h kseq.h
-	$(CXX) -c -o main.o main.cpp
+extract.o: extract.cpp extract.h string_hash.h kseq.h
+	$(CXX) --std=c++11 -c -o extract.o extract.cpp
+
+argparse.o: argparse.cpp argparse.h
+	$(CXX) --std=c++11 -c -o argparse.o argparse.cpp
 
 .PHONY: clean
 clean:
 	-rm -f tiny_fastq_extractor
 	-rm -f *.o
+	$(MAKE) clean -C testsuite
