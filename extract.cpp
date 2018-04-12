@@ -38,7 +38,7 @@ void Extractor::load_ids_from_file(const char *file)
 			num_ids++;
 		}
 	std::cerr << loaded_ids.size() << " unique ids loaded from '" << file << "'" << std::endl;
-	std::cerr << "(total  " << num_ids << " are unique)" << std::endl;
+	std::cerr << "(total  " << num_ids << " including redundants)" << std::endl;
 }
 
 /*==============================================================================
